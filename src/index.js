@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from './routes';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+
+import App from './components/App';
 
 import './index.css';
 
@@ -13,9 +16,13 @@ import rootReducer from './reducers';
 const middleware = applyMiddleware(thunk, createLogger());
 export const store = createStore(rootReducer, middleware);
 
+const history = createBrowserHistory();
+
 ReactDOM.render(
   <Provider store={store}>
-    <Routes />
+    <Router history={history}>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById('root')
 );

@@ -1,18 +1,16 @@
 import React from 'react';
-import App from './containers/AppContainer';
-import About from './components/About/About';
+import { Login, Signup } from './components';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 const Routes = () => {
   return (
-    <Router>
-      <div>
-        <Route exact path="/" component={App} />
-        <Route exact path="/about" component={About} />
-      </div>
-    </Router>
-  )
+    <Switch>
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={Signup} />
+      <Route component={Login} />
+    </Switch>
+  );
 };
 
 export default Routes;
