@@ -5,41 +5,35 @@ const AuthForm = props => {
   const { name, displayName, handleSubmit } = props;
 
   return (
-    <div>
+    <div className="authform">
+      <h1>{displayName}</h1>
       <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
+        {displayName === 'Register' ? (
+          <input name="name" type="name" placeholder="name" />
+        ) : (
+          ''
+        )}
+        <input name="email" type="email" placeholder="email" />
+        <input name="password" type="password" placeholder="password" />
+        <input className="submit" type="submit" value={displayName} />
       </form>
     </div>
   );
 };
 
-const mapLogin = state => {
+const mapSignin = state => {
   return {
-    name: 'login',
-    displayName: 'Login',
+    name: 'signin',
+    displayName: 'Sign In',
   };
 };
 
-const mapSignup = state => {
+const mapRegister = state => {
   return {
-    name: 'signup',
-    displayName: 'Sign Up',
+    name: 'register',
+    displayName: 'Register',
   };
 };
 
-export const Login = connect(mapLogin)(AuthForm);
-export const Signup = connect(mapSignup)(AuthForm);
+export const Signin = connect(mapSignin)(AuthForm);
+export const Register = connect(mapRegister)(AuthForm);

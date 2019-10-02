@@ -1,1 +1,1 @@
-export { Login, Signup } from './AuthForm';
+export { Signin, Register } from './AuthForm';

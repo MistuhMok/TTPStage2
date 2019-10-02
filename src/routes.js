@@ -1,14 +1,14 @@
 import React from 'react';
-import { Login, Signup } from './components';
+import { Signin, Register } from './components';
 
 import { Switch, Route } from 'react-router-dom';
 
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={Signup} />
-      <Route component={Login} />
+      <Route path="/signin" component={Signin} />
+      <Route path="/register" component={Register} />
+      <Route component={Signin} />
     </Switch>
   );
 };
