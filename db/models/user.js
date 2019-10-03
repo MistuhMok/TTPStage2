@@ -1,5 +1,3 @@
-'use strict';
-
 const Sequelize = require('sequelize');
 const db = require('../index.js');
 
@@ -24,7 +22,7 @@ const User = db.define('user', {
   },
   funds: {
     type: Sequelize.INTEGER,
-    defaultValue: 50000,
+    defaultValue: 500000,
     validate: { min: 0 },
   },
 });

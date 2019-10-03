@@ -9,7 +9,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
     <nav>
       {isLoggedIn ? (
         <div>
-          <Link to="/home">Home</Link>
+          <Link to="/home">Portfolio</Link>
+          <Link to="/Transactions">Transactions</Link>
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a href="#" onClick={handleClick}>
             Logout

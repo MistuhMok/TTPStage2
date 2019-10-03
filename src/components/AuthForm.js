@@ -11,7 +11,7 @@ const AuthForm = props => {
       <h1>{displayName}</h1>
       <form onSubmit={handleSubmit} name={name}>
         {displayName === 'Register' ? (
-          <input name="name" type="name" placeholder="name" />
+          <input name="userName" type="name" placeholder="name" />
         ) : (
           ''
         )}
@@ -45,15 +45,19 @@ const mapRegister = state => {
 };
 
 const mapDispatch = dispatch => {
-  console.log('does this run?');
   return {
     handleSubmit(evt) {
+      console.log('does this run?', evt.target.name);
+
       evt.preventDefault();
       const formName = evt.target.name;
-      const email = evt.target.email.value;
+      const email = evt.target.email.value.toLowerCase();
       const password = evt.target.password.value;
-      console.log(email, password, formName, 'map dispatch');
-      dispatch(auth(email, password, formName));
+      let name;
+      if (evt.target.name === 'register') name = evt.target.userName.value;
+      console.log(email, password, formName, name, 'map dispatch');
+
+      dispatch(auth(email, password, formName, name));
     },
   };
 };

@@ -7,9 +7,9 @@ export const UserHome = props => {
   return (
     <div>
       <h3>
-        Welcome, {name} {email}
+        Welcome, {name} email:{email}
       </h3>
-      <h3>Cash (${funds})</h3>
+      <h3>Cash - ${funds / 100}</h3>
     </div>
   );
 };

@@ -16,3 +16,28 @@ router.post('/signin', async (req, res, next) => {
     next(err);
   }
 });
+
+router.post('/register', async (req, res, next) => {
+  try {
+    console.log(req.body, 'REGISTER');
+    const user = await User.create(req.body);
+    req.login(user, err => (err ? next(err) : res.json(user)));
+  } catch (err) {
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      res.status(401).send('User already exists');
+    } else {
+      next(err);
+    }
+  }
+});
+
+router.post('/logout', (req, res) => {
+  console.log(req.session, 'LOGOUT');
+  req.logout();
+  req.session.destroy();
+  res.redirect('/');
+});
+
+router.get('/me', (req, res) => {
+  res.json(req.user);
+});
