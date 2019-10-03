@@ -9,7 +9,7 @@
 - [x] Default the user’s cash account balance to \$5000.00 USD.
 - [x] A user can only register once with any given email.
 
-2. As a user, I want to authenticate via email and password so that I can access my account.
+✔️ 2. As a user, I want to authenticate via email and password so that I can access my account.
 
 3. As a user, I want to buy shares of stock at its current price by specifying its ticker symbol and the number of shares so that I can invest.
 

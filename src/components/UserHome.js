@@ -9,9 +9,17 @@ export const UserHome = props => {
       <h3>
         Welcome, {name} email:{email}
       </h3>
-      <h3>Cash - ${funds / 100}</h3>
+      <h3>Cash - {displayFunds(funds)}</h3>
     </div>
   );
+};
+
+const displayFunds = amount => {
+  const stringAmount = amount.toString();
+  return `$${stringAmount.slice(
+    0,
+    stringAmount.length - 2
+  )}.${stringAmount.slice(-2)}`;
 };
 
 const mapState = state => {
