@@ -51,6 +51,7 @@ app
   .use('/api', require('./api'));
 
 app.use('/auth', require('./auth'));
+app.use('/stocks', require('./stocks'));
 
 // Always return the main index.html, so react-router render the route in the client
 // app.get('*', (req, res) => {

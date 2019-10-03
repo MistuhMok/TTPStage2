@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Stocks from './Stocks';
 
 export const UserHome = props => {
   const { email, funds, name } = props;
@@ -10,6 +11,8 @@ export const UserHome = props => {
         Welcome, {name} email:{email}
       </h3>
       <h3>Cash - {displayFunds(funds)}</h3>
+
+      <Stocks />
     </div>
   );
 };
