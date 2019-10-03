@@ -1,16 +1,57 @@
-import React from 'react';
-import { Signin, Register } from './components';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Signin, Register, UserHome } from './components';
 
-import { Switch, Route } from 'react-router-dom';
+import { withRouter, Switch, Route } from 'react-router-dom';
+import { me } from './reducers';
 
-const Routes = () => {
-  return (
-    <Switch>
-      <Route path="/signin" component={Signin} />
-      <Route path="/register" component={Register} />
-      <Route component={Signin} />
-    </Switch>
-  );
+class Routes extends Component {
+  componentDidMount() {
+    // console.log(this.props, 'CDM');
+    this.props.loadInitialData();
+  }
+
+  render() {
+    const { isLoggedIn } = this.props;
+
+    // const isLoggedIn = true;
+    return (
+      <Switch>
+        <Route path="/signin" component={Signin} />
+        <Route path="/register" component={Register} />
+        {isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/home" component={UserHome} />
+          </Switch>
+        )}
+        <Route component={Signin} />
+      </Switch>
+    );
+  }
+}
+
+const mapState = state => {
+  return {
+    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
+    // Otherwise, state.user will be an empty object, and state.user.id will be falsey
+    isLoggedIn: !!state.user.id,
+  };
 };
 
-export default Routes;
+const mapDispatch = dispatch => {
+  return {
+    loadInitialData() {
+      dispatch(me());
+    },
+  };
+};
+
+// The `withRouter` wrapper makes sure that updates are not blocked
+// when the url changes
+export default withRouter(
+  connect(
+    mapState,
+    mapDispatch
+  )(Routes)
+);

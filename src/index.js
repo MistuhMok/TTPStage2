@@ -15,6 +15,7 @@ const middleware = applyMiddleware(thunk, createLogger());
 export const store = createStore(rootReducer, middleware);
 
 const history = createBrowserHistory();
+export default history;
 
 ReactDOM.render(
   <Provider store={store}>

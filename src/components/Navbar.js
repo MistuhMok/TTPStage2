@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from '../reducers';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
@@ -8,6 +10,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       {isLoggedIn ? (
         <div>
           <Link to="/home">Home</Link>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -23,4 +26,21 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
   </div>
 );
 
-export default Navbar;
+const mapState = state => {
+  return {
+    isLoggedIn: !!state.user.id,
+  };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    handleClick() {
+      dispatch(logout());
+    },
+  };
+};
+
+export default connect(
+  mapState,
+  mapDispatch
+)(Navbar);
