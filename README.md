@@ -13,9 +13,9 @@
 
 3. As a user, I want to buy shares of stock at its current price by specifying its ticker symbol and the number of shares so that I can invest.
 
-   - [ ] A user can only buy whole number quantities of shares.
-   - [ ] A user can only buy shares if they have enough cash in their account for a given purchase.
-   - [ ] A user can only buy shares if the ticker symbol is valid.
+   - [x] A user can only buy whole number quantities of shares.
+   - [x] A user can only buy shares if they have enough cash in their account for a given purchase.
+   - [x] A user can only buy shares if the ticker symbol is valid.
 
 4. As a user, I want to view a list of all transactions I’ve made to date (trades) so that I can perform an audit.
 

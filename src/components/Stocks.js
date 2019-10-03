@@ -32,7 +32,12 @@ class Stocks extends Component {
           <h4>Stocks</h4>
         )}
         <form onSubmit={handleSubmit}>
-          <input name="ticker" type="text" placeholder="Ticker" />
+          <input
+            name="ticker"
+            type="text"
+            placeholder="Ticker"
+            onChange={this.handleChange}
+          />
           <input
             name="quantity"
             type="number"
@@ -43,6 +48,7 @@ class Stocks extends Component {
                 : ''
             }
             placeholder="Quantity"
+            onChange={this.handleChange}
           />
           <button className="submit" type="submit">
             Submit

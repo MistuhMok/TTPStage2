@@ -1,14 +1,10 @@
-'use strict';
-
-const Product = require('./product');
-const Review = require('./review');
-
 const User = require('./user');
+const Portfolio = require('./portfolio');
 
 // Product.hasMany(Review);
 // Review.belongsTo(Product);
 
 module.exports = {
-  // Product, Review,
   User,
+  Portfolio,
 };
