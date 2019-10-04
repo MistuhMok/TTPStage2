@@ -14,7 +14,7 @@ export const UserHome = props => {
       <h3>Cash - {displayFunds(funds)}</h3>
 
       <Stocks />
-      <Portfolio />
+      <Portfolio displayAmt={displayFunds} />
     </div>
   );
 };

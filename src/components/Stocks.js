@@ -19,14 +19,21 @@ class Stocks extends Component {
 
   render() {
     const { handleSubmit, error, stock, user } = this.props;
-    console.log(this.props);
-    console.log(Math.floor((user.funds / +stock['05. price']) * 0.1));
+    let display = false;
+    let maxShares = 0;
+
+    if (stock['05. price']) {
+      display = true;
+      maxShares = Math.floor((user.funds / +stock['05. price']) * 0.1);
+    }
+
     return (
       <div>
-        {stock['05. price'] ? (
+        {display ? (
           <h4>
             Current: {stock['01. symbol']} ${(+stock['05. price']).toFixed(2)} $
             {(+stock['09. change']).toFixed(2)} ({stock['10. change percent']})
+            Max: {maxShares} shares
           </h4>
         ) : (
           <h4>Stocks</h4>
@@ -42,11 +49,7 @@ class Stocks extends Component {
             name="quantity"
             type="number"
             min="0"
-            max={
-              stock['05. price']
-                ? Math.floor((user.funds / +stock['05. price']) * 0.1)
-                : ''
-            }
+            max={display ? maxShares : ''}
             placeholder="Quantity"
             onChange={this.handleChange}
           />
