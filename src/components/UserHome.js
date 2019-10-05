@@ -11,7 +11,7 @@ export const UserHome = props => {
       <h3>
         Welcome, {name} email:{email}
       </h3>
-      <h3>Cash - {displayFunds(funds)}</h3>
+      <h3>Cash: {displayFunds(funds)}</h3>
 
       <Stocks />
       <Portfolio displayAmt={displayFunds} />

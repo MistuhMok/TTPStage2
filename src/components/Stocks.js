@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchData } from '../reducers/index';
+import { fetchData, transactStock } from '../reducers/index';
 
 const defaultState = { ticker: '', quantity: 0 };
 
@@ -17,14 +17,28 @@ class Stocks extends Component {
     });
   };
 
+  transactStockSubmit = evt => {
+    evt.preventDefault();
+
+    const { ticker, quantity } = this.state;
+
+    const transaction = {
+      ticker: ticker.toUpperCase(),
+      quantity,
+      price: (+this.props.stock['05. price']).toFixed(2) * 100,
+      type: 'buy',
+    };
+    this.props.transactStock(transaction);
+  };
+
   render() {
-    const { handleSubmit, error, stock, user } = this.props;
+    const { checkPrice, error, stock, user } = this.props;
     let display = false;
     let maxShares = 0;
 
     if (stock['05. price']) {
       display = true;
-      maxShares = Math.floor((user.funds / +stock['05. price']) * 0.1);
+      maxShares = Math.floor((user.funds / +stock['05. price']) * 0.01);
     }
 
     return (
@@ -38,13 +52,26 @@ class Stocks extends Component {
         ) : (
           <h4>Stocks</h4>
         )}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={checkPrice}>
           <input
             name="ticker"
             type="text"
             placeholder="Ticker"
             onChange={this.handleChange}
           />
+          <button
+            className="submit"
+            type="submit"
+            disabled={this.state.ticker.length < 1}
+          >
+            Check Price
+          </button>
+          {error && error.response && (
+            <div className="error"> {error.response.data} </div>
+          )}
+        </form>
+
+        <form onSubmit={this.transactStockSubmit}>
           <input
             name="quantity"
             type="number"
@@ -53,12 +80,12 @@ class Stocks extends Component {
             placeholder="Quantity"
             onChange={this.handleChange}
           />
-          <button className="submit" type="submit">
-            Submit
+          <button
+            type="submit"
+            disabled={this.state.ticker.length < 1 || this.state.quantity < 1}
+          >
+            Purchase
           </button>
-          {error && error.response && (
-            <div className="error"> {error.response.data} </div>
-          )}
         </form>
       </div>
     );
@@ -75,10 +102,13 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
+    checkPrice(evt) {
       evt.preventDefault();
       const ticker = evt.target.ticker.value;
       dispatch(fetchData(ticker));
+    },
+    transactStock(transaction) {
+      dispatch(transactStock(transaction));
     },
   };
 };

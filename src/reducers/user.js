@@ -3,11 +3,13 @@ import history from '../index';
 
 const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
+const TRANSACT_STOCK = 'TRANSACT_STOCK';
 
 const defaultUser = {};
 
 const getUser = user => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
+// const updateFunds =
 
 export const me = () => async dispatch => {
   try {
@@ -48,10 +50,19 @@ export const logout = () => async dispatch => {
 
 export default function(state = defaultUser, action) {
   switch (action.type) {
-    case GET_USER:
-      return action.user;
+    case GET_USER: {
+      const { id, email, name, funds } = action.user;
+      const user = { id, email, name, funds };
+      return user;
+    }
     case REMOVE_USER:
       return defaultUser;
+    case TRANSACT_STOCK: {
+      const { price, quantity } = action.transaction;
+      const cost = price * quantity;
+      console.log(cost, state.funds, 'HELLO');
+      return { ...state, funds: state.funds - cost };
+    }
     default:
       return state;
   }

@@ -17,6 +17,11 @@ const seedUsers = [
     name: 'Alex Mok',
     password: 'password',
   },
+  {
+    email: 'cody@email.com',
+    name: 'Cody Pup',
+    password: '12345',
+  },
 ];
 
 const seed = async () => {

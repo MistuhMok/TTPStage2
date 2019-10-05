@@ -10,8 +10,6 @@ router.get('/:ticker', async (req, res, next) => {
     `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=${API_KEY}`
   );
 
-  console.log(data['Error Message'], 'ticker');
-
   if (data['Error Message']) res.status(400).send('Ticker is invalid');
   else {
     res.status(200).send(data);

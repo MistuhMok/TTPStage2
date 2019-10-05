@@ -40,7 +40,7 @@ class Portfolio extends Component {
         <h2>Portfolio</h2>
         {portfolio
           ? portfolio.map((item, index) => (
-              <div key={item.id} className="portfolioLine">
+              <div key={index} className="portfolioLine">
                 <div>Ticker: {item.ticker}</div>
                 <div>Quantity: {item.quantity}</div>
                 <div>Price: {displayAmt(item.price)}</div>
