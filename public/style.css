@@ -41,3 +41,15 @@ form input {
 .submit {
   margin-bottom: 0.67em;
 }
+
+h2 {
+  padding-left: 2rem;
+}
+.transactionLine {
+  display: flex;
+  border-bottom: 2px solid black;
+  width: 20em;
+  padding: 0.5em;
+  margin: 0 2rem;
+  padding-left: 3rem;
+}

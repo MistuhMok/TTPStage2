@@ -41,12 +41,10 @@ export const transactStock = transaction => async dispatch => {
 
 export default function(state = defaultPortfolio, action) {
   switch (action.type) {
-    case GET_PORTFOLIO: {
+    case GET_PORTFOLIO:
       return action.portfolio;
-    }
-    case TRANSACT_STOCK: {
+    case TRANSACT_STOCK:
       return [...state, action.transaction];
-    }
     default:
       return state;
   }

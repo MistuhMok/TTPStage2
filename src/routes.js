@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Signin, Register, UserHome } from './components';
+import { Signin, Register, UserHome, Transactions } from './components';
 
 import { withRouter, Switch, Route } from 'react-router-dom';
 import { me } from './reducers';
@@ -22,6 +22,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/transactions" component={Transactions} />
           </Switch>
         )}
         <Route component={Signin} />

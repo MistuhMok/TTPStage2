@@ -28,7 +28,6 @@ class Stocks extends Component {
       price: Math.floor((+this.props.stock['05. price']).toFixed(2) * 100),
     };
 
-    console.log(transaction.price, 'price of transaction');
     this.props.transactStock(transaction);
   };
 

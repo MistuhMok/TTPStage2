@@ -1,32 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { fetchTransactions } from '../reducers/index';
 
 class Transactions extends Component {
-  constructor() {
-    super();
-    this.state = { currPrices: [] };
-  }
-
   componentDidMount() {
     this.props.fetchTransactions();
   }
 
+  displayFunds = amount => {
+    const stringAmount = amount.toString();
+    return `$${stringAmount.slice(
+      0,
+      stringAmount.length - 2
+    )}.${stringAmount.slice(-2)}`;
+  };
+
   render() {
-    const { transactions, displayAmt } = this.props;
-    // console.log(this.props, 'portfolio');
+    const { transactions } = this.props;
+    console.log(this.props, 'transactions');
     // console.log(this.state);
 
     return (
       <div>
-        <h2>Portfolio</h2>
+        <h2>Transactions</h2>
         {transactions ? (
           transactions.map((item, index) => (
-            <div key={index} className="portfolioLine">
-              <div>Ticker: {item.ticker}</div>
-              <div>Quantity: {item.quantity}</div>
-              <div>Price: {displayAmt(item.price)}</div>
+            <div key={index} className="transactionLine">
+              {+item.quantity > 0 ? <div>BUY</div> : <div>SELL</div>}
+              <div>({item.ticker}) - </div>
+              <div>{Math.abs(item.quantity)} Shares</div>
+              <div>@ {this.displayFunds(item.price)}</div>
             </div>
           ))
         ) : (
