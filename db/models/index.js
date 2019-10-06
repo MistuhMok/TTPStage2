@@ -6,6 +6,7 @@ const Transaction = require('./transaction');
 // Review.belongsTo(Product);
 User.hasMany(Transaction);
 Portfolio.belongsTo(User);
+User.hasMany(Portfolio);
 
 module.exports = {
   User,

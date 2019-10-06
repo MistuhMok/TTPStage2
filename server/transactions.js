@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
   try {
     res.json(
       await Transaction.findAll({
-        where: { user_id: 1 },
+        where: { user_id: req.session.passport.user },
       })
     );
   } catch (err) {

@@ -12,22 +12,11 @@ const Transaction = db.define('transaction', {
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    validate: {
-      min: 0,
-    },
   },
   price: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: { min: 0 },
-  },
-  type: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-      isIn: [['buy', 'sell']],
-    },
   },
 });
 

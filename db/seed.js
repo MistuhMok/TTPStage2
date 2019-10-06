@@ -1,5 +1,5 @@
 const db = require('../db');
-const { User } = require('./models');
+const { User, Portfolio } = require('./models');
 const { green, yellow, red } = require('chalk');
 
 //  db.didSync
@@ -24,12 +24,41 @@ const seedUsers = [
   },
 ];
 
+const seedPortfolios = [
+  {
+    ticker: 'MSFT',
+    quantity: '10',
+    price: 10000,
+    userId: 2,
+  },
+  {
+    ticker: 'FB',
+    quantity: '5',
+    price: 20000,
+    userId: 2,
+  },
+  {
+    ticker: 'AMZN',
+    quantity: '1',
+    price: 17242,
+    userId: 2,
+  },
+];
+
 const seed = async () => {
   try {
     await db.sync({ force: true });
 
     await User.create(seedUsers[0]);
     console.log(yellow('Seeded 1st User'));
+
+    await User.create(seedUsers[1]);
+    console.log(yellow('Seeded 2nd User'));
+
+    for (let i = 0; i < seedPortfolios.length; i++) {
+      await Portfolio.create(seedPortfolios[i]);
+    }
+    console.log(yellow('Seeded Portfolio'));
 
     console.log(green('Seeding success!'));
     db.close();

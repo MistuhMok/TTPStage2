@@ -25,9 +25,10 @@ class Stocks extends Component {
     const transaction = {
       ticker: ticker.toUpperCase(),
       quantity,
-      price: (+this.props.stock['05. price']).toFixed(2) * 100,
-      type: 'buy',
+      price: Math.floor((+this.props.stock['05. price']).toFixed(2) * 100),
     };
+
+    console.log(transaction.price, 'price of transaction');
     this.props.transactStock(transaction);
   };
 

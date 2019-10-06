@@ -23,16 +23,25 @@ class Portfolio extends Component {
       });
 
       const data = await axios.all(portfolioArray);
-      data.forEach(stock => {
-        currPrices.push(stock.data['Global Quote']['05. price']);
-      });
+      console.log(data, 'DATA');
+      for (let i = 0; i < data.length; i++) {
+        if (!data[i].data['Global Quote']) {
+          break;
+        } else {
+          currPrices.push(
+            (+data[i].data['Global Quote']['05. price']).toFixed(2)
+          );
+        }
+      }
+
       this.setState({ currPrices: currPrices });
     }
   }
 
   render() {
     const { portfolio, displayAmt } = this.props;
-    console.log(this.props, 'portfolio');
+    const { currPrices } = this.state;
+    // console.log(this.props, 'portfolio');
     // console.log(this.state);
 
     return (
@@ -44,9 +53,11 @@ class Portfolio extends Component {
                 <div>Ticker: {item.ticker}</div>
                 <div>Quantity: {item.quantity}</div>
                 <div>Price: {displayAmt(item.price)}</div>
-                <div>
-                  Current Price: ${(+this.state.currPrices[index]).toFixed(2)}
-                </div>
+                {currPrices.length !== 0 ? (
+                  <div>Current Price: ${currPrices[index]}</div>
+                ) : (
+                  <div>Loading...</div>
+                )}
               </div>
             ))
           : ''}
