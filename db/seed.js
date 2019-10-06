@@ -2,15 +2,6 @@ const db = require('../db');
 const { User, Portfolio } = require('./models');
 const { green, yellow, red } = require('chalk');
 
-//  db.didSync
-//    .then(() => db.sync({force: true}))
-//    .then(seedProducts)
-//    .then(products => console.log(`Seeded ${products.length} products OK`))
-//    .then(seedReviews)
-//    .then(reviews => console.log(`Seeded ${reviews.length} reviews OK`))
-//    .catch(error => console.error(error))
-//    .finally(() => db.close())
-
 const seedUsers = [
   {
     email: 'email@email.com',

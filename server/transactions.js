@@ -1,4 +1,3 @@
-const Portfolio = require('../db/models/portfolio');
 const Transaction = require('../db/models/transaction');
 
 const router = require('express').Router();

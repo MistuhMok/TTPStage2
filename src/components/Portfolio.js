@@ -43,8 +43,9 @@ class Portfolio extends Component {
   }
 
   calculateChange = index => {
-    if (this.state.currPrices.length)
-      return this.state.currPrices[index] - this.state.openingPrices[index];
+    const { currPrices, openingPrices } = this.state;
+    if (currPrices[index] && openingPrices[index])
+      return currPrices[index] - openingPrices[index];
 
     return 0;
   };
