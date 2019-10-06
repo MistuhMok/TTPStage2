@@ -29,10 +29,12 @@ class Stocks extends Component {
     };
 
     this.props.transactStock(transaction);
+    this.setState(defaultState);
   };
 
   render() {
     const { checkPrice, error, stock, user } = this.props;
+    const { quantity } = this.state;
     let display = false;
     let maxShares = 0;
 
@@ -40,6 +42,8 @@ class Stocks extends Component {
       display = true;
       maxShares = Math.floor((user.funds / +stock['05. price']) * 0.01);
     }
+
+    console.log(stock, 'STOCK', quantity);
 
     return (
       <div>
@@ -75,16 +79,15 @@ class Stocks extends Component {
           <input
             name="quantity"
             type="number"
-            min="0"
             max={display ? maxShares : ''}
             placeholder="Quantity"
             onChange={this.handleChange}
           />
           <button
             type="submit"
-            disabled={this.state.ticker.length < 1 || this.state.quantity < 1}
+            disabled={!+quantity || Object.keys(stock).length < 1}
           >
-            Purchase
+            {quantity < 0 ? 'Sell' : 'Purchase'}
           </button>
         </form>
       </div>

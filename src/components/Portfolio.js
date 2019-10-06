@@ -27,7 +27,8 @@ class Portfolio extends Component {
       console.log(data, 'DATA');
       for (let i = 0; i < data.length; i++) {
         if (!data[i].data['Global Quote']) {
-          break;
+          currPrices.push('----');
+          openingPrices.push('----');
         } else {
           currPrices.push(
             (+data[i].data['Global Quote']['05. price']).toFixed(2)

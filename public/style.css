@@ -58,7 +58,7 @@ h2 {
   color: green;
 }
 [data-change='0'] {
-  color: black;
+  color: grey;
 }
 [data-change^='-'] {
   color: red;

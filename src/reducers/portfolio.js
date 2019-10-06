@@ -28,6 +28,9 @@ export const fetchPortfolio = () => async dispatch => {
 
 export const transactStock = transaction => async dispatch => {
   try {
+    console.log(transaction, 'TRANSACT STOCK THUNK');
+    const payload = await axios.post('/api/portfolio', transaction);
+    console.log(payload, 'PAYLOAD');
     const { data } = await axios.post('/api/transactions', transaction);
     console.log(data);
     const { ticker, price, quantity } = data;
