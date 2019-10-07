@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { fetchData, transactStock } from '../reducers/index';
 
-const defaultState = { ticker: '', quantity: 0 };
+const defaultState = { ticker: '', quantity: '' };
 
 class Stocks extends Component {
   constructor() {
@@ -34,7 +34,7 @@ class Stocks extends Component {
 
   render() {
     const { checkPrice, error, stock, user } = this.props;
-    const { quantity } = this.state;
+    const { quantity, ticker } = this.state;
     let display = false;
     let maxShares = 0;
 
@@ -61,6 +61,7 @@ class Stocks extends Component {
             name="ticker"
             type="text"
             placeholder="Ticker"
+            value={ticker}
             onChange={this.handleChange}
           />
           <button
@@ -81,6 +82,7 @@ class Stocks extends Component {
             type="number"
             max={display ? maxShares : ''}
             placeholder="Quantity"
+            value={quantity}
             onChange={this.handleChange}
           />
           <button

@@ -26,12 +26,25 @@ router.post('/', async (req, res, next) => {
     res.json({ item, created: true });
   } else {
     // Found an item, update it
+    const quantity = +foundItem.dataValues.quantity + +req.body.quantity;
     const updatedQuantity = {
-      quantity: +foundItem.dataValues.quantity + +req.body.quantity,
+      quantity,
     };
-    const item = await Portfolio.update(updatedQuantity, {
-      where: { ticker, userId },
-    });
+
+    let item;
+
+    if (quantity === 0) {
+      await foundItem.destroy();
+      item = foundItem.dataValues;
+      item.quantity = quantity;
+    } else {
+      const newItem = await Portfolio.update(updatedQuantity, {
+        where: { ticker, userId },
+        returning: true,
+      });
+      item = newItem[1][0];
+      console.log(item, 'post route item');
+    }
     res.json({ item, created: false });
   }
 });
