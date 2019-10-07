@@ -17,8 +17,6 @@ class Transactions extends Component {
 
   render() {
     const { transactions } = this.props;
-    console.log(this.props, 'transactions');
-    // console.log(this.state);
 
     return (
       <div>

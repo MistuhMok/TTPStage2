@@ -34,7 +34,6 @@ export const fetchPortfolio = () => async dispatch => {
 export const transactStock = transaction => async dispatch => {
   try {
     const updateAmount = transaction.quantity * transaction.price;
-    console.log(transaction, 'INSIDE THE THUNK');
     const payload = await axios.all([
       axios.post('/api/portfolio', transaction),
       axios.post('/api/transactions', transaction),
@@ -42,7 +41,6 @@ export const transactStock = transaction => async dispatch => {
       axios.put('/auth/updateFunds', { updateAmount }),
     ]);
 
-    console.log(payload, 'thunk after routes');
     let newTicker, newPrice, newQuantity;
 
     if (payload[0].data.created) {
@@ -79,7 +77,7 @@ export default function(state = defaultPortfolio, action) {
           stock => stock.ticker !== action.transaction.ticker
         );
       }
-      //If stock exists updating existing
+      //If stock exists update existing
       else {
         const newState = state.map(stock => {
           if (stock.ticker === action.transaction.ticker)

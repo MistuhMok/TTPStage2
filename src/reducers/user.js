@@ -9,12 +9,10 @@ const defaultUser = {};
 
 const getUser = user => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
-// const updateFunds =
 
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me');
-    console.log(res.data, 'me thunk');
     dispatch(getUser(res.data || defaultUser));
   } catch (err) {
     console.error(err);
@@ -24,7 +22,6 @@ export const me = () => async dispatch => {
 export const auth = (email, password, method, name = '') => async dispatch => {
   let res;
   try {
-    console.log(method, 'auth dispatch');
     res = await axios.post(`/auth/${method}`, { email, password, name });
   } catch (authError) {
     return dispatch(getUser({ error: authError }));

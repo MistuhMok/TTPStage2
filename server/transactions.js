@@ -3,7 +3,6 @@ const Transaction = require('../db/models/transaction');
 const router = require('express').Router();
 
 router.get('/', async (req, res, next) => {
-  // console.log(req, 'get route');
   try {
     res.json(
       await Transaction.findAll({

@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { auth } from '../reducers/index';
 
 const AuthForm = props => {
-  console.log(props, 'authform');
-
   const { name, displayName, handleSubmit, error } = props;
   return (
     <div className="authform">
@@ -29,7 +27,6 @@ const AuthForm = props => {
 };
 
 const mapSignin = state => {
-  console.log(state.user.error, 'mapSignIn');
   return {
     name: 'signin',
     displayName: 'Sign In',
@@ -48,15 +45,12 @@ const mapRegister = state => {
 const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
-      console.log('does this run?', evt.target.name);
-
       evt.preventDefault();
       const formName = evt.target.name;
       const email = evt.target.email.value.toLowerCase();
       const password = evt.target.password.value;
       let name;
       if (evt.target.name === 'register') name = evt.target.userName.value;
-      console.log(email, password, formName, name, 'map dispatch');
 
       dispatch(auth(email, password, formName, name));
     },

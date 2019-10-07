@@ -36,7 +36,6 @@ app.use(bodyParser.json());
 app.use(
   session({
     secret: 'secret',
-    // store: sessionStore,
     resave: false,
     saveUninitialized: false,
   })
@@ -52,10 +51,5 @@ app
 
 app.use('/auth', require('./auth'));
 app.use('/stocks', require('./stocks'));
-
-// Always return the main index.html, so react-router render the route in the client
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
-// });
 
 module.exports = app;

@@ -47,11 +47,12 @@ h2 {
 }
 .transactionLine {
   display: flex;
+  justify-content: space-between;
   border-bottom: 2px solid black;
-  width: 20em;
+  width: 50vw;
   padding: 0.5em;
   margin: 0 2rem;
-  padding-left: 3rem;
+  font-size: 25px;
 }
 
 [data-change] {
@@ -62,4 +63,25 @@ h2 {
 }
 [data-change^='-'] {
   color: red;
+}
+
+.userHome {
+  display: flex;
+}
+
+.portfolio {
+  flex: 5;
+}
+
+.stocks {
+  flex: 4;
+  margin: 0 2rem;
+}
+
+.ticker {
+  display: flex;
+}
+
+.divider {
+  border-left: 2px solid black;
 }

@@ -19,9 +19,7 @@ class Stocks extends Component {
 
   transactStockSubmit = evt => {
     evt.preventDefault();
-
     const { ticker, quantity } = this.state;
-
     const transaction = {
       ticker: ticker.toUpperCase(),
       quantity,
@@ -43,14 +41,11 @@ class Stocks extends Component {
       maxShares = Math.floor((user.funds / +stock['05. price']) * 0.01);
     }
 
-    console.log(stock, 'STOCK', quantity);
-
     return (
       <div>
         {display ? (
           <h4>
-            Current: {stock['01. symbol']} ${(+stock['05. price']).toFixed(2)} $
-            {(+stock['09. change']).toFixed(2)} ({stock['10. change percent']})
+            Selected: {stock['01. symbol']} ${(+stock['05. price']).toFixed(2)}{' '}
             Max: {maxShares} shares
           </h4>
         ) : (

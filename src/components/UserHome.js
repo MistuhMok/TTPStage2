@@ -4,17 +4,20 @@ import Stocks from './Stocks';
 import Portfolio from './Portfolio';
 
 export const UserHome = props => {
-  const { email, funds, name } = props;
+  const { funds, name } = props;
 
   return (
     <div>
-      <h3>
-        Welcome, {name} email:{email}
-      </h3>
-      <h3>Cash: {displayFunds(funds)}</h3>
+      <h3>Welcome, {name}</h3>
 
-      <Stocks />
-      <Portfolio displayAmt={displayFunds} />
+      <div className="userHome">
+        <Portfolio displayAmt={displayFunds} />
+        <div className="divider"></div>
+        <div className="stocks">
+          <h3>Cash: {displayFunds(funds)}</h3>
+          <Stocks />
+        </div>
+      </div>
     </div>
   );
 };

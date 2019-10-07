@@ -7,7 +7,6 @@ import { me } from './reducers';
 
 class Routes extends Component {
   componentDidMount() {
-    // console.log(this.props, 'CDM');
     this.props.loadInitialData();
   }
 

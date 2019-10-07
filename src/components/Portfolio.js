@@ -6,7 +6,7 @@ import { fetchPortfolio } from '../reducers/index';
 class Portfolio extends Component {
   constructor() {
     super();
-    this.state = { currPrices: [] };
+    this.state = { currPrices: [], portfolioTotal: 0 };
   }
 
   componentDidMount() {
@@ -18,18 +18,22 @@ class Portfolio extends Component {
       const portfolioArray = [];
       const currPrices = [];
       const openingPrices = [];
+      let portfolioTotal = 0;
 
       this.props.portfolio.forEach(stock => {
         portfolioArray.push(axios.get(`/stocks/${stock.ticker}`));
       });
 
       const data = await axios.all(portfolioArray);
-      console.log(data, 'DATA');
       for (let i = 0; i < data.length; i++) {
         if (!data[i].data['Global Quote']) {
           currPrices.push('--.--');
           openingPrices.push('--.--');
         } else {
+          portfolioTotal +=
+            +(+data[i].data['Global Quote']['05. price']).toFixed(2) *
+            this.props.portfolio[i].quantity;
+
           currPrices.push(
             (+data[i].data['Global Quote']['05. price']).toFixed(2)
           );
@@ -39,7 +43,7 @@ class Portfolio extends Component {
         }
       }
 
-      this.setState({ currPrices, openingPrices });
+      this.setState({ currPrices, openingPrices, portfolioTotal });
     }
   }
 
@@ -52,27 +56,23 @@ class Portfolio extends Component {
   };
 
   render() {
-    const { portfolio, displayAmt } = this.props;
-    const { currPrices, openingPrices } = this.state;
-    // console.log(this.props, 'portfolio');
-    // console.log(this.state);
-    console.log(currPrices, openingPrices, 'CURR AND OPENING');
+    const { portfolio } = this.props;
+    const { currPrices, portfolioTotal } = this.state;
 
     return (
-      <div>
-        <h2>Portfolio</h2>
+      <div className="portfolio">
+        <h2>{`Portfolio ($${portfolioTotal})`}</h2>
         {portfolio
           ? portfolio.map((item, index) => (
               <div key={index} className="transactionLine">
-                <div data-change={this.calculateChange(index)}>
-                  Ticker: {item.ticker}
+                <div className="ticker">
+                  <div data-change={this.calculateChange(index)}>
+                    {item.ticker} - {item.quantity} Shares
+                  </div>
                 </div>
-                <div>Quantity: {item.quantity}</div>
-                <div>Price: {displayAmt(item.price)}</div>
                 {currPrices.length !== 0 ? (
                   <div data-change={this.calculateChange(index)}>
-                    <div>Current Price: ${currPrices[index]}</div>
-                    <div>Opening Price: ${openingPrices[index]}</div>
+                    <div>${(currPrices[index] * item.quantity).toFixed(2)}</div>
                   </div>
                 ) : (
                   <div>Loading...</div>
