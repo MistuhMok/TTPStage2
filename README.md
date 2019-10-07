@@ -1,5 +1,15 @@
 # TTPStage2
 
+### Description
+
+App deployed to: https://ttpstage2.herokuapp.com/
+
+The user can do all of the following in the user stories as well as check the price of stocks individually, sell stocks with a negative quantity, and the portfolio and cash balances will update correctly.
+
+The biggest issue is when there are more than 5 API calls in a minute, which can happen when there are too many stocks in a portfolio or checking the price of stocks too frequently.
+
+---
+
 ### User Stories
 
 ---
