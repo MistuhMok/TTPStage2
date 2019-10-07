@@ -23,6 +23,7 @@ export const UserHome = props => {
 };
 
 const displayFunds = amount => {
+  console.log(amount, 'amount');
   const stringAmount = amount.toString();
   return `$${stringAmount.slice(
     0,

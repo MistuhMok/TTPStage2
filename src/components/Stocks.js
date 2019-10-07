@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { fetchData, transactStock } from '../reducers/index';
 
-const defaultState = { ticker: '', quantity: '' };
+const defaultState = { ticker: '', quantity: '', stock: {} };
 
 class Stocks extends Component {
   constructor() {
@@ -11,10 +11,31 @@ class Stocks extends Component {
     this.state = defaultState;
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+      Object.keys(this.props.stock).length > 0 &&
+      this.props.stock !== this.state.stock
+    ) {
+      console.log('component did update', this.props);
+      this.setState({
+        stock: this.props.stock,
+        ticker: this.props.stock['01. symbol'],
+      });
+    }
+  }
+
+  checkPrice = evt => {
+    evt.preventDefault();
+    const ticker = evt.target.ticker.value;
+    this.props.checkPrice(ticker);
+    console.log(this.props.stock, ' CHECK PRICE SUBMIT');
+  };
+
   handleChange = evt => {
     this.setState({
       [evt.target.name]: evt.target.value,
     });
+    console.log(this.state);
   };
 
   transactStockSubmit = evt => {
@@ -23,7 +44,7 @@ class Stocks extends Component {
     const transaction = {
       ticker: ticker.toUpperCase(),
       quantity,
-      price: Math.floor((+this.props.stock['05. price']).toFixed(2) * 100),
+      price: Math.floor((+this.state.stock['05. price']).toFixed(2) * 100),
     };
 
     this.props.transactStock(transaction);
@@ -31,8 +52,8 @@ class Stocks extends Component {
   };
 
   render() {
-    const { checkPrice, error, stock, user } = this.props;
-    const { quantity, ticker } = this.state;
+    const { error, user } = this.props;
+    const { stock, quantity, ticker } = this.state;
     let display = false;
     let maxShares = 0;
 
@@ -40,7 +61,7 @@ class Stocks extends Component {
       display = true;
       maxShares = Math.floor((user.funds / +stock['05. price']) * 0.01);
     }
-
+    // console.log(stock, 'this.state.stock');
     return (
       <div>
         {display ? (
@@ -51,7 +72,7 @@ class Stocks extends Component {
         ) : (
           <h4>Stocks</h4>
         )}
-        <form onSubmit={checkPrice}>
+        <form onSubmit={this.checkPrice}>
           <input
             name="ticker"
             type="text"
@@ -59,11 +80,7 @@ class Stocks extends Component {
             value={ticker}
             onChange={this.handleChange}
           />
-          <button
-            className="submit"
-            type="submit"
-            disabled={this.state.ticker.length < 1}
-          >
+          <button className="submit" type="submit" disabled={ticker.length < 1}>
             Check Price
           </button>
           {error && error.response && (
@@ -102,9 +119,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    checkPrice(evt) {
-      evt.preventDefault();
-      const ticker = evt.target.ticker.value;
+    checkPrice(ticker) {
       dispatch(fetchData(ticker));
     },
     transactStock(transaction) {

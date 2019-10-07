@@ -61,7 +61,7 @@ class Portfolio extends Component {
 
     return (
       <div className="portfolio">
-        <h2>{`Portfolio ($${portfolioTotal})`}</h2>
+        <h2>{`Portfolio ($${portfolioTotal.toFixed(2)})`}</h2>
         {portfolio
           ? portfolio.map((item, index) => (
               <div key={index} className="transactionLine">
