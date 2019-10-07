@@ -25,9 +25,11 @@ class Transactions extends Component {
           transactions.map((item, index) => (
             <div key={index} className="transactionLine">
               {+item.quantity > 0 ? <div>BUY</div> : <div>SELL</div>}
-              <div>({item.ticker}) - </div>
-              <div>{Math.abs(item.quantity)} Shares</div>
-              <div>@ {this.displayFunds(item.price)}</div>
+              <div>({item.ticker})</div>
+              <div>
+                {Math.abs(item.quantity)} Shares @{' '}
+                {this.displayFunds(item.price)}
+              </div>
             </div>
           ))
         ) : (

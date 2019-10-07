@@ -85,3 +85,7 @@ h2 {
 .divider {
   border-left: 2px solid black;
 }
+
+.currentPrice {
+  display: flex;
+}

@@ -67,13 +67,26 @@ class Portfolio extends Component {
               <div key={index} className="transactionLine">
                 <div className="ticker">
                   <div data-change={this.calculateChange(index)}>
-                    {item.ticker} - {item.quantity} Shares
+                    {item.ticker}
                   </div>
                 </div>
                 {currPrices.length !== 0 ? (
-                  <div data-change={this.calculateChange(index)}>
-                    <div>${(currPrices[index] * item.quantity).toFixed(2)}</div>
-                  </div>
+                  <React.Fragment>
+                    <div className="currentPrice">
+                      {item.quantity} Shares @
+                      <div data-change={this.calculateChange(index)}>
+                        {' '}
+                        ${currPrices[index]}
+                      </div>
+                    </div>
+
+                    <div>
+                      $
+                      {currPrices[index] === '--.--'
+                        ? '--.--'
+                        : (currPrices[index] * item.quantity).toFixed(2)}
+                    </div>
+                  </React.Fragment>
                 ) : (
                   <div>Loading...</div>
                 )}
