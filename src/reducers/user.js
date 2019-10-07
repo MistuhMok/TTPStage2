@@ -57,12 +57,8 @@ export default function(state = defaultUser, action) {
     }
     case REMOVE_USER:
       return defaultUser;
-    case TRANSACT_STOCK: {
-      const { price, quantity } = action.transaction;
-      const cost = price * quantity;
-      console.log(cost, state.funds, 'HELLO');
-      return { ...state, funds: state.funds - cost };
-    }
+    case TRANSACT_STOCK:
+      return { ...state, funds: action.updatedFunds };
     default:
       return state;
   }

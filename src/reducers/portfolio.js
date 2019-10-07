@@ -6,10 +6,11 @@ const TRANSACT_STOCK = 'TRANSACT_STOCK';
 const defaultPortfolio = [];
 
 const getPortfolio = portfolio => ({ type: GET_PORTFOLIO, portfolio });
-const updatePortfolio = (transaction, newStock) => ({
+const updatePortfolio = (transaction, newStock, updatedFunds) => ({
   type: TRANSACT_STOCK,
   transaction,
   newStock,
+  updatedFunds,
 });
 
 export const fetchPortfolio = () => async dispatch => {
@@ -32,20 +33,22 @@ export const fetchPortfolio = () => async dispatch => {
 
 export const transactStock = transaction => async dispatch => {
   try {
+    const updateAmount = transaction.quantity * transaction.price;
     console.log(transaction, 'INSIDE THE THUNK');
     const payload = await axios.all([
       axios.post('/api/portfolio', transaction),
       axios.post('/api/transactions', transaction),
-      // axios.put('/api/user/updateFunds')
+      //should check if transaction went through before updating funds
+      axios.put('/auth/updateFunds', { updateAmount }),
     ]);
-    // console.log(data, 'thunk after routes');
+
+    console.log(payload, 'thunk after routes');
     let newTicker, newPrice, newQuantity;
 
     if (payload[0].data.created) {
       const { ticker, price, quantity } = payload[1].data;
       [newTicker, newPrice, newQuantity] = [ticker, price, quantity];
     } else {
-      console.log(payload[0], 'transact stock THUNK');
       const { ticker, price, quantity } = payload[0].data.item;
       [newTicker, newPrice, newQuantity] = [ticker, price, quantity];
     }
@@ -55,7 +58,9 @@ export const transactStock = transaction => async dispatch => {
       quantity: newQuantity,
     };
 
-    dispatch(updatePortfolio(newStock, payload[0].data.created));
+    const updatedFunds = payload[2].data[1][0].funds;
+
+    dispatch(updatePortfolio(newStock, payload[0].data.created, updatedFunds));
   } catch (err) {
     return dispatch(updatePortfolio({ error: err }));
   }

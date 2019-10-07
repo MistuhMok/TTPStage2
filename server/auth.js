@@ -37,3 +37,21 @@ router.post('/logout', (req, res) => {
 router.get('/me', (req, res) => {
   res.json(req.user);
 });
+
+router.put('/updateFunds', async (req, res, next) => {
+  const userId = req.session.passport.user;
+  const user = await User.findByPk(userId);
+  console.log(user.dataValues.funds, req.body, 'UPDATE FUNDS ROUTE');
+  const updatedFunds = {
+    funds: +user.dataValues.funds - +req.body.updateAmount,
+  };
+
+  console.log(updatedFunds, 'NEW FUNDS AMOUNT');
+
+  res.json(
+    await User.update(updatedFunds, {
+      where: { id: req.session.passport.user },
+      returning: true,
+    })
+  );
+});

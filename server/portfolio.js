@@ -43,7 +43,6 @@ router.post('/', async (req, res, next) => {
         returning: true,
       });
       item = newItem[1][0];
-      console.log(item, 'post route item');
     }
     res.json({ item, created: false });
   }
