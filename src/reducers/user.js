@@ -48,6 +48,7 @@ export const logout = () => async dispatch => {
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER: {
+      if (action.user.error) return action.user;
       const { id, email, name, funds } = action.user;
       const user = { id, email, name, funds };
       return user;

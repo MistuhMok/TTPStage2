@@ -11,12 +11,11 @@ class Stocks extends Component {
     this.state = defaultState;
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     if (
       Object.keys(this.props.stock).length > 0 &&
       this.props.stock !== this.state.stock
     ) {
-      console.log('component did update', this.props);
       this.setState({
         stock: this.props.stock,
         ticker: this.props.stock['01. symbol'],
@@ -28,14 +27,12 @@ class Stocks extends Component {
     evt.preventDefault();
     const ticker = evt.target.ticker.value;
     this.props.checkPrice(ticker);
-    console.log(this.props.stock, ' CHECK PRICE SUBMIT');
   };
 
   handleChange = evt => {
     this.setState({
       [evt.target.name]: evt.target.value,
     });
-    console.log(this.state);
   };
 
   transactStockSubmit = evt => {
@@ -61,7 +58,6 @@ class Stocks extends Component {
       display = true;
       maxShares = Math.floor((user.funds / +stock['05. price']) * 0.01);
     }
-    // console.log(stock, 'this.state.stock');
     return (
       <div>
         {display ? (
@@ -80,7 +76,11 @@ class Stocks extends Component {
             value={ticker}
             onChange={this.handleChange}
           />
-          <button className="submit" type="submit" disabled={ticker.length < 1}>
+          <button
+            className="submit"
+            type="submit"
+            disabled={error || ticker.length < 1}
+          >
             Check Price
           </button>
           {error && error.response && (
@@ -99,7 +99,7 @@ class Stocks extends Component {
           />
           <button
             type="submit"
-            disabled={!+quantity || Object.keys(stock).length < 1}
+            disabled={!+quantity || Object.keys(stock).length < 1 || error}
           >
             {quantity < 0 ? 'Sell' : 'Purchase'}
           </button>

@@ -89,3 +89,16 @@ h2 {
 .currentPrice {
   display: flex;
 }
+
+.error {
+  background-color: #fff6f6;
+  color: #9f3a38;
+  border: 1px solid;
+  padding: 0.5em;
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+
+.error div {
+  font-weight: bold;
+}
