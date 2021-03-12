@@ -52,7 +52,7 @@
   "devDependencies": {
     "chalk": "^2.4.2",
     "path": "^0.12.7",
-    "react-dev-utils": "^9.0.4"
+    "react-dev-utils": "^11.0.4"
   },
   "proxy": "http://localhost:8000"
 }
